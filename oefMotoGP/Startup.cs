@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using oefMotoGP.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace oefMotoGP
 {
@@ -22,10 +24,12 @@ namespace oefMotoGP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<GPContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("MotoGP")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, GPContext context)
         {
             if (env.IsDevelopment())
             {

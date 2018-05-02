@@ -1,4 +1,6 @@
-﻿namespace oefMotoGP.Models
+﻿using System;
+
+namespace oefMotoGP.Models
 {
     public class Ticket
     {
@@ -9,7 +11,7 @@
         public int CountryID { get; set; }
         public int RaceID { get; set; }
         public int Number { get; set; }
-        public decimal OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
         public bool Paid { get; set; }
     }
 }
