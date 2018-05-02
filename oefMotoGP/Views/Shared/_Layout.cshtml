@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+@{
+    var banner = ViewData["bannerNaam"];
+    banner = "../images/allerlei/" + banner;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MotoGP</title>
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
+</head>
+<body>
+    <a asp-controller="Home" asp-action="Menu"> <img class="banner" src="@banner"> </a>
+    <h1>@ViewData["pageTitle"]</h1>
+    <div class="content">
+        @RenderBody()
+    </div>
+</body>
+</html>
