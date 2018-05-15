@@ -55,3 +55,48 @@ h1 {
 .content {
     margin: 10px;
 }
+
+.rider-container {
+    width: 500px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.rider-item {
+    padding: 30px 30px 0 30px;
+    margin: 20px;
+    background-color: lightgray;
+}
+
+.rider-item {
+    font-size: 1.2em;
+    color: rgba(0,0,0,0.4);
+}
+
+.space-between {
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.space-between p {
+    margin: 0;
+    font-size: 2em;
+}
+
+.input-element p {
+    width: 250px;
+}
+
+.input-element {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.label {
+    width: 50px;
+}

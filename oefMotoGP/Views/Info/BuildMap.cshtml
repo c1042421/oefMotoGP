@@ -1,16 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     ViewData["Title"] = "Races on map";
-    var races = (List<Race>)ViewData["races"];
-
 }
 
 <img src="~/images/allerlei/map.png" width="1024" height="468" alt="racemap" usemap="#racemap"/>
 
 <map name="racemap" >
-    @foreach (var race in races) {
-        <area shape="circle" href="/Home/ShowRace/@race.RaceID" coords="@race.X, @race.Y, 8" alt="race.Name">
+    @foreach (var race in Model) {
+        <area shape="circle" href="/Info/ShowRace/@race.RaceID" coords="@race.X, @race.Y, 8" alt="race.Name">
     }
 </map>

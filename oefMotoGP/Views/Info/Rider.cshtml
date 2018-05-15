@@ -1,0 +1,11 @@
+﻿@{
+    string profileSrc = @"/images/rijders/" + Model.Number + ".jpg";
+    string countrySrc = @"/images/vlaggen/" + Model.CountryID + ".png";
+}
+
+<div class="rider-item">
+   <img src=@profileSrc />
+    <div class="space-between"><img src=@countrySrc /> <p>@Model.Number</p></div> 
+   <p>@Model.FullName</p>
+</div>
+

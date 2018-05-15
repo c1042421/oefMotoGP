@@ -4,6 +4,11 @@
 @{
 ViewData["Title"] = "Riders";
 }
+<div class="rider-container">
+    @foreach (Rider rider in Model)
+    {
+        @await Html.PartialAsync("Rider", rider)
+    }
+</div>
 
-<p>Please fill out the following fields</p>
 <a asp-controller="Home" asp-action="Menu" > Back </a>

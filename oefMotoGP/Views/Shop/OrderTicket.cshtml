@@ -1,7 +1,56 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model oefMotoGP.Models.Ticket
+
 @{
+    List<Race> races = (List<Race>)ViewData["races"];
+    List<Country> countries = (List<Country>)ViewData["countries"];
 }
+
 <p>Please fill out the following fields</p>
-<a asp-controller="Home" asp-action="Menu" > Back </a>
+<form method="post">
+    <div class="input-element">
+        <div class="label"><label asp-for="Name"></label> </div> <input name="Name" type="text" />
+    </div>
+
+    <div class="input-element">
+        <div class="label"><label asp-for="Email"></label> </div><input name="Email" type="text" />
+    </div>
+
+    <div class="input-element">
+        <div class="label"><label asp-for="Address"></label></div><input name="Address" type="text" />
+    </div>
+
+    <div class="input-element">
+        <div class="label"><label asp-for="Email"></label> </div>
+        <select name="CountryID">
+        @foreach (Country country in countries)
+        {
+            <option value="@country.CountryID" >@country.Name</option>
+        }
+        </select>
+    </div>
+
+
+    <div class="input-element">
+        <div class="label"><label>Race</label></div>
+        <div>
+            @foreach (Race race in races)
+            {
+                <input type="radio" name="RaceID" value=@race.RaceID /> @race.Name <br />
+            }
+        </div>
+    </div>
+
+    <div class="input-element">
+        <div class="label"><label asp-for="Number"></label></div>
+        @for (int i = 1; i <= 6; i++)
+        {
+            <input type="radio" name="Number" value=@i /> @i
+        }
+    </div>
+
+    <div class="input-element">
+        <div class="label"></div><input type="submit" value="Order" />
+    </div>
+
+</form>
+<a asp-controller="Home" asp-action="Menu"> Back </a>

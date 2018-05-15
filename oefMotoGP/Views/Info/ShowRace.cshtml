@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "ShowRace";
+    string imgSrc = @"/images/races/" + @Model.RaceID + ".jpg";
+}
+
+<h1>Race - @Model.Name</h1>
+
+<h2>@Model.Date.ToString("dd/MM/yyyy") - @Model.Country</h2>
+
+<img src=@imgSrc />
+
+<p>@Model.Description</p>
+
+<a asp-controller="Info" asp-action="ListRaces">Back</a>
+

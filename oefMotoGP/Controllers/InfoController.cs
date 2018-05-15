@@ -11,11 +11,20 @@ namespace oefMotoGP.Controllers
 {
     public class InfoController : Controller
     {
+        private readonly GPContext _context;
+
+        public InfoController(GPContext context) {
+            _context = context;
+        }
+
         public IActionResult ListRaces()
         {
             ViewData["bannerNaam"] = "bannerRaces.jpg";
             ViewData["pageTitle"] = "Races";
-            return View();
+
+            List<IGrouping<string, Race>> racesByDate = _context.Races.OrderBy(race => race.Date).GroupBy(race => race.Date.ToString("MMMM")).ToList();
+
+            return View(racesByDate);
         }
 
         public IActionResult ListTeams(){
@@ -28,37 +37,27 @@ namespace oefMotoGP.Controllers
         {
             ViewData["bannerNaam"] = "bannerRiders.jpg";
             ViewData["pageTitle"] = "Riders";
-            return View();
+
+            List<Rider> riders = _context.Riders.OrderBy(r => r.Number).ToList();
+
+            return View(riders);
         }
 
         public IActionResult BuildMap() {
             ViewData["pageTitle"] = "Races on map";
             ViewData["bannerNaam"] = "bannerRaces.jpg";
 
-            List<Race> races = new List<Race>();
-            races.Add(new Race()
-            {
-                RaceID = 1,
-                X = 515,
-                Y = 19,
-                Name = "Assen"
-            });
-            races.Add(new Race()
-            {
-                RaceID = 2,
-                X = 859,
-                Y = 249,
-                Name = "Losail Circuit"
-            });
-            races.Add(new Race()
-            {
-                RaceID = 3,
-                X = 194,
-                Y = 428,
-                Name = "Autodromo Termas de Rio Hondo"
-            });
-            ViewData["races"] = races;
-            return View();
+            List<Race> races = _context.Races.ToList();
+
+            return View(races);
+        }
+
+        public IActionResult ShowRace(int id)
+        {
+            ViewData["bannerNaam"] = "bannerRaces.jpg";
+            Race race = _context.Races.Where(r=> r.RaceID == id).FirstOrDefault();
+            
+            return View(race);
         }
     }
 }

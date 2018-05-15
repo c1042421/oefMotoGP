@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace oefMotoGP.Models
 {
     public class Race
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RaceID { get; set; }
 
         public string Name { get; set; }

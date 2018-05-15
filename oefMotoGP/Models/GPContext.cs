@@ -22,7 +22,7 @@ namespace oefMotoGP.Models
             modelBuilder.Entity<Country>().ToTable("Country");
             modelBuilder.Entity<Race>().ToTable("Race");
             modelBuilder.Entity<Rider>().ToTable("Rider");
-            modelBuilder.Entity<Team>().ToTable("Teams");
+            modelBuilder.Entity<Team>().ToTable("Team");
             modelBuilder.Entity<Ticket>().ToTable("Ticket");
         }
     }

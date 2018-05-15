@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace oefMotoGP.Models
 {
     public class Ticket
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TicketID { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }

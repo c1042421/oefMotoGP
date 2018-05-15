@@ -7,3 +7,17 @@
 <a asp-controller="Home" asp-action="Menu" > Back </a> | 
 <a asp-controller="Info" asp-action="BuildMap" > Races on map </a> | 
 <a asp-controller="Info" asp-action="SelectRace" > One by one </a>
+
+@foreach (IGrouping<string, Race> group in Model)
+{
+    <h1>@group.Key</h1>
+    <p>
+        @foreach (Race race in group)
+        {
+            @race.Date.ToString("dd/MM/yyyy")            
+            <a asp-controller="Info" asp-action="ShowRace" asp-route-id="@race.RaceID">
+                @race.Name <br />
+            </a>
+        }
+    </p>
+}
