@@ -21,7 +21,7 @@ namespace oefMotoGP.Controllers
 
         public IActionResult ConfirmOrder(int id)
         {
-            Ticket ticket = _context.Tickets.Include(x=> x.Race).Where(t => t.TicketID == id).SingleOrDefault();
+            Ticket ticket = _context.Tickets.Include(x=> x.Race).Include(x=>x.Country).Where(t => t.TicketID == id).SingleOrDefault();
 
             ViewData["bannerNaam"] = "bannerTickets.jpg";
             ViewData["pageTitle"] = "Confirmation";
@@ -32,12 +32,24 @@ namespace oefMotoGP.Controllers
         [HttpPost]
         public IActionResult OrderTicket(Ticket ticket)
         {
-            ticket.OrderDate = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                ticket.OrderDate = DateTime.Now;
 
-            _context.Tickets.Add(ticket);
-            _context.SaveChanges();
+                try
+                {
+                    _context.Tickets.Add(ticket);
+                    _context.SaveChanges();
+                    return RedirectToAction("ConfirmOrder", new { id = ticket.TicketID });
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                
+            }
 
-            return RedirectToAction("ConfirmOrder", new { id = ticket.TicketID });
+            return View(ticket);
         }
 
         public IActionResult OrderTicket()

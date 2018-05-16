@@ -44,7 +44,7 @@
         <div class="label"><label asp-for="Number"></label></div>
         @for (int i = 1; i <= 6; i++)
         {
-            <input type="radio" name="Number" value=@i /> @i
+            <input required type="radio" name="Number" value=@i /> @i
         }
     </div>
 

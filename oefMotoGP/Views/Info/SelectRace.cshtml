@@ -1,0 +1,23 @@
+﻿@model oefMotoGP.ViewModel.SelectRaceViewModel
+@{
+    ViewData["Title"] = "Races";
+    string imgSrc = "";
+    if (Model.SelectedRace != null)
+    {
+        imgSrc = @"/images/races/" + @Model.SelectedRace.RaceID + ".jpg";
+    }
+
+}
+
+<form asp-method="SelectRace">
+    <select asp-for="RaceID" asp-items="Model.Races" onchange="this.form.submit()">
+        <option value="0"> -Select a Race- </option>
+    </select>
+</form>
+
+
+
+@if (Model.SelectedRace != null)
+{
+    <img src="@imgSrc" />
+}

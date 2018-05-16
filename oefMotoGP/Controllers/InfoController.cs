@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using oefMotoGP.Models;
+using oefMotoGP.ViewModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,6 +27,24 @@ namespace oefMotoGP.Controllers
             List<IGrouping<string, Race>> racesByDate = _context.Races.OrderBy(race => race.Date).GroupBy(race => race.Date.ToString("MMMM")).ToList();
 
             return View(racesByDate);
+        }
+
+        public IActionResult SelectRace(SelectRaceViewModel model)
+        {
+            ViewData["bannerNaam"] = "bannerRaces.jpg";
+            ViewData["pageTitle"] = "Races";
+
+            List<Race> races = _context.Races.OrderBy(r => r.Name).ToList();
+            Race selectedRace = _context.Races.Where(r => r.RaceID == model.RaceID).SingleOrDefault();
+
+            SelectList selectRacesList = new SelectList(races, "RaceID", "Name", model.RaceID);
+
+            SelectRaceViewModel vm = new SelectRaceViewModel();
+
+            vm.Races = selectRacesList;
+            vm.SelectedRace = selectedRace;
+    
+            return View(vm);
         }
 
         public IActionResult ListTeams(){
