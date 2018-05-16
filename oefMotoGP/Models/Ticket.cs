@@ -15,5 +15,6 @@ namespace oefMotoGP.Models
         public int Number { get; set; }
         public DateTime OrderDate { get; set; }
         public bool Paid { get; set; }
+        public Race Race { get; set; }
     }
 }

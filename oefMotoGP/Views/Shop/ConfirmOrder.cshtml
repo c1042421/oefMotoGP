@@ -5,5 +5,5 @@
 ViewData["Title"] = "Confirmation";
 var Date = DateTime.Now.ToString("d");
 }
-<p>Thank yu for ordering tickets for the race. Your booking is registered on @Date. We will send the tickets as soon as possible.</p>
+<p>Thank you <strong>@Model.Name</strong> for ordering tickets for the race in <strong>@Model.Race.Name</strong> on <strong>@Model.Race.Date.ToString("dd/MM/yyyy")</strong>. Your booking is registered on <strong>@Model.OrderDate.ToString("dd/MM/yyyy")</strong>. We will send the <strong>@Model.Number</strong> tickets as soon as possible.</p>
 <a asp-controller="Home" asp-action="Menu" > Back </a>
