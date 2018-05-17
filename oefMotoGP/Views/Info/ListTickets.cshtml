@@ -1,0 +1,79 @@
+﻿@model  oefMotoGP.ViewModel.ListTicketsViewModel
+
+@{
+    ViewData["Title"] = "Ordered tickets";
+    ViewData["bannerNaam"] = "bannerTickets.jpg";
+    ViewData["pageTitle"] = "Ordered tickets";
+}
+<form asp-method="SelectRace">
+    <select asp-for="RaceID" asp-items="Model.Races">
+        <option> -Select a Race- </option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+@if (Model.Tickets.Capacity > 0)
+{
+    <table class="tickets">
+        <thead>
+            <tr>
+                <td>
+                    OrderDate
+                </td>
+                <td>
+                    Name
+                </td>
+                <td>
+                    Email
+                </td>
+                <td>
+                    Address
+                </td>
+                <td>
+                    Country
+                </td>
+                <td>
+                    Race
+                </td>
+                <td>
+                    Number
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ticket in Model.Tickets)
+            {
+                <tr>
+                    <td>
+                        @ticket.OrderDate.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @ticket.Name
+                    </td>
+                    <td>
+                        @ticket.Email
+                    </td>
+                    <td>
+                        @ticket.Address
+                    </td>
+                    <td>
+                        @ticket.Country
+                    </td>
+                    <td>
+                        @ticket.Race.Name
+                    </td>
+                    <td>
+                        @ticket.Number
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+else
+{
+<p>No tickets ordered for this race yet.</p>
+}
+
+<a asp-controller="Home" asp-action="Menu">Back</a>

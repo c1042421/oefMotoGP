@@ -100,3 +100,17 @@ h1 {
 .label {
     width: 50px;
 }
+
+td  {
+    padding: 15px;
+}
+
+thead {
+    font-weight:bold;
+}
+
+.tickets td {
+    padding: 0 5px 3px;
+    padding-right: 5px;
+}
+

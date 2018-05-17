@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using oefMotoGP.Models;
 using oefMotoGP.ViewModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,15 +16,27 @@ namespace oefMotoGP.Controllers
     {
         private readonly GPContext _context;
 
-        public InfoController(GPContext context) {
+        public InfoController(GPContext context)
+        {
             _context = context;
+        }
+
+        public IActionResult ListTickets(ListTicketsViewModel model)
+        {
+            List<Race> races = _context.Races.OrderBy(r => r.Name).ToList();
+
+            model.Races = new SelectList(races, "RaceID", "Name");
+
+            model.Tickets =
+                model.RaceID.HasValue ?
+                _context.Tickets.Where(t => t.RaceID == model.RaceID).ToList() :
+                _context.Tickets.ToList();
+
+            return View(model);
         }
 
         public IActionResult ListRaces()
         {
-            ViewData["bannerNaam"] = "bannerRaces.jpg";
-            ViewData["pageTitle"] = "Races";
-
             List<IGrouping<string, Race>> racesByDate = _context.Races.OrderBy(race => race.Date).GroupBy(race => race.Date.ToString("MMMM")).ToList();
 
             return View(racesByDate);
@@ -31,42 +44,28 @@ namespace oefMotoGP.Controllers
 
         public IActionResult SelectRace(SelectRaceViewModel model)
         {
-            ViewData["bannerNaam"] = "bannerRaces.jpg";
-            ViewData["pageTitle"] = "Races";
+            model.SelectedRace = _context.Races.Where(r => r.RaceID == model.RaceID).SingleOrDefault();
 
             List<Race> races = _context.Races.OrderBy(r => r.Name).ToList();
-            Race selectedRace = _context.Races.Where(r => r.RaceID == model.RaceID).SingleOrDefault();
+            model.Races = new SelectList(races, "RaceID", "Name", model.RaceID);
 
-            SelectList selectRacesList = new SelectList(races, "RaceID", "Name", model.RaceID);
-
-            SelectRaceViewModel vm = new SelectRaceViewModel();
-
-            vm.Races = selectRacesList;
-            vm.SelectedRace = selectedRace;
-    
-            return View(vm);
+            return View(model);
         }
 
-        public IActionResult ListTeams(){
-            ViewData["bannerNaam"] = "bannerTeams.jpg";
-            ViewData["pageTitle"] = "Teams";
+        public IActionResult ListTeams()
+        {
             return View();
         }
 
         public IActionResult ListRiders()
         {
-            ViewData["bannerNaam"] = "bannerRiders.jpg";
-            ViewData["pageTitle"] = "Riders";
-
             List<Rider> riders = _context.Riders.OrderBy(r => r.Number).ToList();
 
             return View(riders);
         }
 
-        public IActionResult BuildMap() {
-            ViewData["pageTitle"] = "Races on map";
-            ViewData["bannerNaam"] = "bannerRaces.jpg";
-
+        public IActionResult BuildMap()
+        {
             List<Race> races = _context.Races.ToList();
 
             return View(races);
@@ -74,9 +73,8 @@ namespace oefMotoGP.Controllers
 
         public IActionResult ShowRace(int id)
         {
-            ViewData["bannerNaam"] = "bannerRaces.jpg";
-            Race race = _context.Races.Where(r=> r.RaceID == id).FirstOrDefault();
-            
+            Race race = _context.Races.Where(r => r.RaceID == id).FirstOrDefault();
+
             return View(race);
         }
     }

@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "ShowRace";
+    ViewData["bannerNaam"] = "bannerRaces.jpg";
     string imgSrc = @"/images/races/" + @Model.RaceID + ".jpg";
 }
 
@@ -12,4 +13,3 @@
 <p>@Model.Description</p>
 
 <a asp-controller="Info" asp-action="ListRaces">Back</a>
-

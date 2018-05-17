@@ -1,6 +1,8 @@
 ﻿@model oefMotoGP.ViewModel.SelectRaceViewModel
 @{
     ViewData["Title"] = "Races";
+    ViewData["bannerNaam"] = "bannerRaces.jpg";
+    ViewData["pageTitle"] = "Races";
     string imgSrc = "";
     if (Model.SelectedRace != null)
     {
@@ -19,5 +21,24 @@
 
 @if (Model.SelectedRace != null)
 {
-    <img src="@imgSrc" />
+    <table>
+        <tr>
+            <td>
+                <img src="@imgSrc" />
+            </td>
+            <td>
+                <p>
+                    @Model.SelectedRace.Name - @Model.SelectedRace.Country <br />
+                    Length: @Model.SelectedRace.Length m <br />
+                    Date : @Model.SelectedRace.Date.ToString("dd/MM/yyyy")
+                </p>
+                <p>
+                    @Model.SelectedRace.Description
+                </p>
+            </td>
+        </tr>
+    </table>
+
 }
+
+<a asp-controller="Info" asp-action="ListRaces">Back</a>
