@@ -1,0 +1,17 @@
+﻿@model Team
+@{
+    string imgSrc = @"/images/teams/" + Model.Logo;
+}
+
+<div class="rider-item">
+    <img src="@imgSrc" /><br />
+    @Model.Name
+
+    <div class="rider-names">
+       @foreach (Rider rider in Model.Riders)
+       {
+           <text>@rider.FullName</text><br />
+}
+    </div>
+</div>
+

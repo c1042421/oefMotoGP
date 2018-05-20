@@ -1,0 +1,47 @@
+﻿@model Ticket
+@{
+    ViewData["Title"] = "EditTicket";
+    ViewData["bannerNaam"] = "bannerTickets.jpg";
+    ViewData["pageTitle"] = "Edit tickets";
+}
+<form asp-action="EditTicket">
+    <input type="text" hidden asp-for="TicketID" />
+    <input type="text" hidden asp-for="OrderDate" />
+    <table>
+        <tr>
+            <td><label asp-for="Name"></label><input type="text" hidden asp-for="Name"/></td>
+            <td>@Html.DisplayTextFor(x => x.Name)</td>
+        </tr>
+        <tr>
+            <td><label asp-for="Email"></label> <input type="text" hidden asp-for="Email" /></td>
+            <td> @Model.Email</td>
+        </tr>
+        <tr>
+            <td><label asp-for="Address"></label> <input type="text" hidden asp-for="Address" /></td>
+            <td>@Model.Address</td>
+        </tr>
+        <tr>
+            <td><label asp-for="Country"></label> <input type="text" hidden asp-for="CountryID" /></td>
+            <td>@Model.Country.Name</td>
+        </tr>
+        <tr>
+            <td><label asp-for="Race"></label> <input type="text" hidden asp-for="RaceID" /></td>
+            <td>@Model.Race.Name</td>
+        </tr>
+        <tr>
+            <td><label asp-for="Number"></label> <input type="text" hidden asp-for="Number" /></td>
+            <td>@Model.Number</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input asp-for="Paid"/>Paid</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Register"/></td>
+        </tr>
+    </table>
+</form>
+
+<a asp-controller="Info" asp-action="ListTickets">Back</a>
+

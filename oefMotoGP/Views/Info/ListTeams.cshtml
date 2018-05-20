@@ -1,10 +1,18 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model List<Team>
 @{
     ViewData["Title"] = "Teams";
     ViewData["bannerNaam"] = "bannerTeams.jpg";
     ViewData["pageTitle"] = "Teams";
 }
-<p>Please fill out the following fields</p>
+<div class="rider-container">
+    @foreach (Team team in Model)
+    {
+        @await Html.PartialAsync("Team", team)
+    }
+</div>
+
 <a asp-controller="Home" asp-action="Menu" > Back </a>
+<a asp-controller="Info" asp-action="ListTeamRiders">Teams ft Riders</a>

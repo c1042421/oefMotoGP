@@ -29,8 +29,8 @@ namespace oefMotoGP.Controllers
 
             model.Tickets =
                 model.RaceID.HasValue ?
-                _context.Tickets.Where(t => t.RaceID == model.RaceID).ToList() :
-                _context.Tickets.ToList();
+                _context.Tickets.Include(t => t.Country).Where(t => t.RaceID == model.RaceID).ToList() :
+                _context.Tickets.Include(t => t.Country).ToList();
 
             return View(model);
         }
@@ -54,7 +54,20 @@ namespace oefMotoGP.Controllers
 
         public IActionResult ListTeams()
         {
-            return View();
+            List<Team> teams = _context.Teams.Include(t=> t.Riders).OrderBy(t => t.Name).ToList();
+
+            return View(teams);
+        }
+
+        public IActionResult ListTeamRiders(ListTeamRidersViewModel vm)
+        {
+            vm.Teams = _context.Teams.OrderBy(t => t.Name).ToList();
+
+            vm.SelectedTeam = _context.Teams.Include(t => t.Riders)
+                .Where(t => t.TeamID == vm.SelctedID)
+                .SingleOrDefault();
+
+            return View(vm);
         }
 
         public IActionResult ListRiders()

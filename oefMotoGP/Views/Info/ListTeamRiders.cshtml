@@ -1,0 +1,17 @@
+﻿@model oefMotoGP.ViewModel.ListTeamRidersViewModel
+@{
+    ViewData["Title"] = "Teams & Riders";
+    ViewData["bannerNaam"] = "bannerTeams.jpg";
+    ViewData["pageTitle"] = "Teams & Riders";
+}
+
+<form>
+    <div class="teams">
+        @foreach (var team in Model.Teams)
+        {
+            string imgSrc = @"/images/teams/" + team.Logo;
+            <img src="@imgSrc" />
+        }
+    </div>
+</form>
+

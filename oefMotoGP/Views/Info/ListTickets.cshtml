@@ -57,13 +57,23 @@
                         @ticket.Address
                     </td>
                     <td>
-                        @ticket.Country
+                        @ticket.Country.Name
                     </td>
                     <td>
                         @ticket.Race.Name
                     </td>
                     <td>
                         @ticket.Number
+                    </td>
+                    <td>
+                        @if (ticket.Paid)
+                        {
+                            <span>Paid</span>
+                        }else
+                        {
+                            <a asp-controller="Shop" asp-action="EditTicket" asp-route-id="@ticket.TicketID"> Pay</a>
+
+                        }
                     </td>
                 </tr>
 
@@ -73,7 +83,7 @@
 }
 else
 {
-<p>No tickets ordered for this race yet.</p>
+    <p>No tickets ordered for this race yet.</p>
 }
 
 <a asp-controller="Home" asp-action="Menu">Back</a>

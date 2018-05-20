@@ -65,5 +65,30 @@ namespace oefMotoGP.Controllers
 
             return View();
         }
+        
+        public IActionResult EditTicket(int? id)
+        {
+            Ticket ticket = _context.Tickets.Include(t=> t.Race).Include(t => t.Country).Where(t => t.TicketID == id).SingleOrDefault();
+
+            return View(ticket);
+        }
+
+        [HttpPost]
+        public IActionResult EditTicket(Ticket ticket)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Tickets.Update(ticket);
+                    _context.SaveChanges();
+                }
+                catch (Exception )
+                {
+                }
+            }
+
+            return RedirectToAction("ListTickets", "Info");
+        }
     }
 }
