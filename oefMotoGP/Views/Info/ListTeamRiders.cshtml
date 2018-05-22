@@ -5,13 +5,26 @@
     ViewData["pageTitle"] = "Teams & Riders";
 }
 
-<form>
-    <div class="teams">
-        @foreach (var team in Model.Teams)
+<div class="teams">
+
+    @foreach (var team in Model.Teams)
+    {
+        <form method="post">
+            <input asp-for="TeamID" type="text" value="@team.TeamID" hidden />
+            @{
+                string imgSrc = @"/images/teams/" + team.Logo;
+            }
+            <button type="submit" ><img src="@imgSrc" /></button>
+        </form>
+                }
+</div>
+
+@if (Model.SelectedTeam != null)
+{
+    <div class="rider-container">
+        @foreach (Rider rider in Model.SelectedTeam.Riders)
         {
-            string imgSrc = @"/images/teams/" + team.Logo;
-            <img src="@imgSrc" />
+            @await Html.PartialAsync("Rider", rider)
         }
     </div>
-</form>
-
+}

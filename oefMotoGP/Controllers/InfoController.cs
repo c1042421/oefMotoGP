@@ -64,7 +64,7 @@ namespace oefMotoGP.Controllers
             vm.Teams = _context.Teams.OrderBy(t => t.Name).ToList();
 
             vm.SelectedTeam = _context.Teams.Include(t => t.Riders)
-                .Where(t => t.TeamID == vm.SelctedID)
+                .Where(t => t.TeamID == vm.TeamID)
                 .SingleOrDefault();
 
             return View(vm);
